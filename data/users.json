@@ -1,0 +1,20 @@
+{
+    "1": {
+        "user_id": 1,
+        "name": "Szymon G",
+        "nip": 9999,
+        "pesel": "12345678912",
+        "regon": 1111,
+        "password": "abcdef123",
+        "status": "Active"
+    },
+    "2": {
+        "user_id": 1,
+        "name": "Kamil B",
+        "nip": 6363,
+        "pesel": "52152526742",
+        "regon": 2222,
+        "password": "hdshg@$21",
+        "status": "Removed"
+    }
+}
