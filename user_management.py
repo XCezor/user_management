@@ -69,7 +69,7 @@ def remove_user(user_id):
     # Load existing data
     data = load_data()
 
-	# Find a list with user that needs to be edited
+	# Find a list with user that needs to be deleted
     for user in data:
         if user["id"] == user_id:
             user.update({"status": "Inactive"})
