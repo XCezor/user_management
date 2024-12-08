@@ -4,15 +4,6 @@
 
 ## Struktura plików i branchy
 
-### Struktura plików:
-- **`user_management.py`**: Główny plik aplikacji do zarządzania użytkownikami.
-- **`data/`**: Katalog do przechowywania danych użytkowników.
-  - **`users.json`**: Plik przechowujący informacje o użytkownikach.
-- **`README.md`**: Dokumentacja projektu.
-
-### Branchy w Git:
-- **`main`**: Główna gałąź projektu zawierająca stabilną wersję aplikacji.
-- **`feature/user_management`**: Gałąź do implementacji funkcji zarządzania użytkownikami.
 - **`feature/password_validation`**: Gałąź do implementacji funkcji walidacji haseł.
 
 ## Nazwy funkcji:
@@ -29,25 +20,11 @@
 
 ## Sprint 1: Podstawowe Funkcjonalności Zarządzania Użytkownikami
 
-### Milestone 1: Przygotowanie projektu
-1. **Stwórz plik projektu**: Utwórz nowy plik o nazwie `user_management.py`.
-2. **Utwórz strukturę katalogów**: Utwórz katalog `data/` do przechowywania informacji o użytkownikach w pliku `users.json`.
-3. **Importuj biblioteki**: Dodaj niezbędne importy, takie jak `json`, `random`, `re` oraz `os` do pracy z plikami i walidacji.
-
 ### Milestone 2: Implementacja funkcji dodawania i edycji użytkowników
 #### Funkcja `add_user(user_data)`
-- Implementuj funkcję, która dodaje nowego użytkownika do pliku `users.json`.
 - Waliduj numer PESEL, NIP oraz REGON przed dodaniem użytkownika.
-- Funkcje walidacji dodaj jako puste funkcje – kod napiszesz później.
-
-#### Funkcja `edit_user(user_id, updated_data)`
-- Implementuj funkcję do edycji danych istniejącego użytkownika.
-- Wczytaj dane z pliku `users.json`, edytuj odpowiedni rekord i zapisz zmodyfikowane dane z powrotem do pliku.
 
 ### Milestone 3: Praca z plikiem `users.json`
-#### Funkcja `remove_user(user_id)`
-- Implementuj funkcję do usuwania użytkownika na podstawie jego identyfikatora.
-- Wczytaj dane z pliku `users.json`, usuń odpowiedni rekord i zapisz zmodyfikowane dane z powrotem do pliku.
 
 #### Funkcja `load_users()`
 - Implementuj funkcję do odczytu istniejących użytkowników z pliku `users.json`.

@@ -21,6 +21,11 @@ def load_data():
         data = []
     return data
 
+def load_user():
+    data = load_data()
+    for user in data:
+        print(f"Id: {user["id"]}\nUsername: {user["username"]}\nNIP: {user["nip"]}\nPESEL: {user["pesel"]}\nREGON: {user["regon"]}\nPassword: {user["password"]}\nStatus: {user["status"]}\n")
+
 def save_data(data):
     """
     Saves data to .json file.
@@ -114,7 +119,7 @@ def validate_password(password):
 print("Welcome to the user registration!")
 app_running = True
 while app_running:
-	option = input(f"What would you like to do?\n1. Register\n2. Edit user\n3. Remove user\n")
+	option = input(f"What would you like to do?\n1. Register\n2. Edit user\n3. Remove user\n4. Load all users\n")
 
 	if option == "1":
 		user_data_list = {}
@@ -182,3 +187,6 @@ while app_running:
 					break
 			if password_count == 0:
 				print("Incorrect password, try again.\n")
+
+	elif option == "4":
+		load_user()
