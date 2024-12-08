@@ -55,14 +55,18 @@ def edit_user(user_id, updated_data):
     """
     Edits user based on the ID.
     """
+    # Load existing data
     data = load_data()
+
+	# Find a list with user that needs to be edited
     for user in data:
         if user["id"] == user_id:
             user.update(updated_data)
             break
+
+	# Saves new date to the found list. It's not necessary to check if list was found because it's already done in other part of the code.
     save_data(data)
     print(f"User has been updated.\n")
-
 
 def validate_nip(nip):
     pass
@@ -83,6 +87,7 @@ print("Welcome to the user registration!")
 app_running = True
 while app_running:
     option = input(f"What would you like to do?\n1. Register\n2. Edit user\n")
+
     if option == "1":
         user_data_list = {}
         user_data_list["id"] = 1
@@ -94,8 +99,10 @@ while app_running:
         user_data_list["status"] = "Active"
 
         add_user(user_data_list)
+
     elif option == "2":
         data = load_data()
+
         username_correct = False
         while username_correct == False:
             user_count = 0
@@ -107,6 +114,7 @@ while app_running:
                     break
             if user_count == 0:
                 print("Incorrect username, try again.\n")
+
         password_correct = False
         while password_correct == False:
             password_count = 0
@@ -116,8 +124,8 @@ while app_running:
                     print(value["username"])
                     password_correct = True
                     password_count += 1
-
                     print("Login successful!")
+
                     edit_data = input("\nWhat you want to edit?\n1. Name\n2. NIP\n3. PESEL\n4. Regon\n5. Password\n")
                     if edit_data == "1":
                         new_username = input("Enter new name: ")
@@ -134,6 +142,7 @@ while app_running:
                     elif edit_data == "5":
                         new_password = input("Enter new password: ")
                         value["password"] = new_password
+
                     edit_user(value["id"], value)
                     break
             if password_count == 0:
