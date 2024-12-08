@@ -1,20 +1,38 @@
-{
-    "1": {
-        "user_id": 1,
-        "name": "Szymon G",
-        "nip": 9999,
-        "pesel": "12345678912",
-        "regon": 1111,
-        "password": "abcdef123",
+[
+    {
+        "id": 1,
+        "username": "gef rge",
+        "nip": "4523",
+        "pesel": "3245335",
+        "regon": "1512525",
+        "password": "5grg3",
         "status": "Active"
     },
-    "2": {
-        "user_id": 1,
-        "name": "Kamil B",
-        "nip": 6363,
-        "pesel": "52152526742",
-        "regon": 2222,
-        "password": "hdshg@$21",
-        "status": "Removed"
+    {
+        "id": 2,
+        "username": "thgjfg",
+        "nip": "75",
+        "pesel": "64368354",
+        "regon": "647",
+        "password": "gjtuh",
+        "status": "Active"
+    },
+    {
+        "id": 3,
+        "username": "jtfe tjry65",
+        "nip": "3743",
+        "pesel": "5i4536754",
+        "regon": "6564u",
+        "password": "yhk6utb u45",
+        "status": "Active"
+    },
+    {
+        "id": 4,
+        "username": "Tom G",
+        "nip": "623",
+        "pesel": "632",
+        "regon": "632",
+        "password": "GRE632",
+        "status": "Active"
     }
-}
+]
