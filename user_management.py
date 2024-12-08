@@ -22,6 +22,9 @@ def load_data():
     return data
 
 def load_user():
+    '''
+    Prints data of every user.
+    '''
     data = load_data()
     for user in data:
         print(f"Id: {user["id"]}\nUsername: {user["username"]}\nNIP: {user["nip"]}\nPESEL: {user["pesel"]}\nREGON: {user["regon"]}\nPassword: {user["password"]}\nStatus: {user["status"]}\n")

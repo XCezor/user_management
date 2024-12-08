@@ -24,12 +24,6 @@
 #### Funkcja `add_user(user_data)`
 - Waliduj numer PESEL, NIP oraz REGON przed dodaniem użytkownika.
 
-### Milestone 3: Praca z plikiem `users.json`
-
-#### Funkcja `load_users()`
-- Implementuj funkcję do odczytu istniejących użytkowników z pliku `users.json`.
-- Wyświetl wszystkie zapisane informacje o użytkownikach.
-
 ---
 
 ## Sprint 2: Walidacja i Bezpieczeństwo
@@ -71,7 +65,6 @@
 
 ### Milestone 1: Testowanie funkcjonalności
 #### Testowanie dodawania i edycji użytkowników
-- Przetestuj funkcje `add_user()`, `edit_user()` i `remove_user()`, aby upewnić się, że działają prawidłowo.
 - Sprawdź scenariusze, takie jak brak pliku `users.json`, usuwanie nieistniejącego użytkownika itp.
 
 ### Milestone 2: Walidacja danych
