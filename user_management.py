@@ -21,6 +21,13 @@ def load_data():
         data = []
     return data
 
+def save_data(data):
+    """
+    Saves data to .json file.
+    """
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
+
 def add_user(user_data):
     '''
         Loads data from the .json file, creates new user with provided data and saves them to the file.
@@ -37,8 +44,7 @@ def add_user(user_data):
     data.append(user_data)
 
     # Save new user to the file
-    with open(file_path, "w") as file:
-        json.dump(data, file, indent=4)
+    save_data(data)
 
     print("User created successfully!")
 
@@ -46,7 +52,17 @@ def remove_user(user_id):
     pass
 
 def edit_user(user_id, updated_data):
-    pass
+    """
+    Edits user based on the ID.
+    """
+    data = load_data()
+    for user in data:
+        if user["id"] == user_id:
+            user.update(updated_data)
+            break
+    save_data(data)
+    print(f"User has been updated.\n")
+
 
 def validate_nip(nip):
     pass
@@ -89,8 +105,6 @@ while app_running:
                     username_correct = True
                     user_count += 1
                     break
-                else:
-                    continue
             if user_count == 0:
                 print("Incorrect username, try again.\n")
         password_correct = False
@@ -104,7 +118,7 @@ while app_running:
                     password_count += 1
 
                     print("Login successful!")
-                    edit_data = input("What you want to edit?\n1. Name\n2. NIP\n3. PESEL\n4. Regon\n5. Password\n")
+                    edit_data = input("\nWhat you want to edit?\n1. Name\n2. NIP\n3. PESEL\n4. Regon\n5. Password\n")
                     if edit_data == "1":
                         new_username = input("Enter new name: ")
                         value["username"] = new_username
@@ -122,7 +136,5 @@ while app_running:
                         value["password"] = new_password
                     edit_user(value["id"], value)
                     break
-                else:
-                    continue
             if password_count == 0:
                 print("Incorrect password, try again.\n")
