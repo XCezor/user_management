@@ -22,21 +22,13 @@
 
 ### Milestone 2: Implementacja funkcji dodawania i edycji użytkowników
 #### Funkcja `add_user(user_data)`
-- Waliduj numer PESEL, NIP oraz REGON przed dodaniem użytkownika.
+- Waliduj numer PESEL oraz REGON przed dodaniem użytkownika.
 
 ---
 
 ## Sprint 2: Walidacja i Bezpieczeństwo
 
 ### Milestone 1: Walidacja danych użytkownika
-#### Funkcja `validate_nip(nip)`
-- Numer NIP (Numer Identyfikacji Podatkowej) składa się z 10 cyfr.
-- Mechanizm tworzenia numeru NIP obejmuje zastosowanie wagi dla każdej cyfry numeru: `[6, 5, 7, 2, 3, 4, 5, 6, 7]`.
-- Aby zweryfikować NIP:
-  1. Przemnóż każdą z pierwszych dziewięciu cyfr przez odpowiadającą jej wagę.
-  2. Zsumuj wyniki.
-  3. Podziel sumę przez 11 (modulo). Jeśli reszta jest równa ostatniej cyfrze NIP, numer jest poprawny.
-- [Więcej informacji](https://pl.wikipedia.org/wiki/Numer_identyfikacji_podatkowej)
 
 #### Funkcja `validate_pesel(pesel)`
 - Implementuj walidację numeru PESEL.

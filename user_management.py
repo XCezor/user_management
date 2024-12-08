@@ -105,7 +105,14 @@ def edit_user(user_id, updated_data):
     print(f"User has been updated.\n")
 
 def validate_nip(nip):
-    pass
+	nip = nip.replace('-', '')
+	if len(nip) != 10 or not nip.isdigit():
+		print("NIP is incorrect, try again.")
+		return False
+	digits = [int(digit) for digit in nip]
+	weights = (6, 5, 7, 2, 3, 4, 5, 6, 7)
+	is_last_number_valid = sum(digit1 * digit2 for digit1, digit2 in zip(digits, weights)) % 11
+	return is_last_number_valid == digits[9]
 
 def validate_pesel(pesel):
     pass
@@ -128,7 +135,12 @@ while app_running:
 		user_data_list = {}
 		user_data_list["id"] = 1
 		user_data_list["username"] = input("Enter your full name: ")
-		user_data_list["nip"] = input("Enter your NIP: ")
+		# NIP
+		valid_nip = False
+		while valid_nip == False:
+			user_data_list["nip"] = input("Enter your NIP: ")
+			valid_nip = validate_nip(user_data_list["nip"])
+		# PESEL
 		user_data_list["pesel"] = input("Enter your PESEL: ")
 		user_data_list["regon"] = input("Enter your Regon number: ")
 		user_data_list["password"] = input("Create strong password: ")
@@ -154,9 +166,14 @@ while app_running:
 					if edit_data == "1":
 						new_username = input("Enter new name: ")
 						value["username"] = new_username
+					# NIP
 					elif edit_data == "2":
-						new_nip = input("Enter new NIP: ")
+						valid_nip = False
+						while valid_nip == False:
+							new_nip = input("NIP: ")
+							valid_nip = validate_nip(new_nip)
 						value["nip"] = new_nip
+					# PESEL
 					elif edit_data == "3":
 						new_pesel = input("Enter new PESEL: ")
 						value["pesel"] = new_pesel
