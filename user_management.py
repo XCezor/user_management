@@ -92,7 +92,7 @@ def edit_user(user_id, updated_data):
             user.update(updated_data)
             break
 
-	# Saves new date to the found list. It's not necessary to check if list was found because it's already done in other part of the code.
+	# Saves new data to the found list. It's not necessary to check if list was found because it's already done in other part of the code.
     save_data(data)
     print(f"User has been updated.\n")
 
