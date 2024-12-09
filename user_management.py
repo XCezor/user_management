@@ -37,6 +37,9 @@ def save_data(data):
 		json.dump(data, file, indent=4)
 
 def check_user():
+	'''
+	Checks if provided username exists in the users.json file and is valid.
+	'''
 	username_correct = False
 	while username_correct == False:
 		user_count = 0
@@ -52,7 +55,7 @@ def check_user():
 
 def add_user(user_data):
 	'''
-		Loads data from the .json file, creates new user with provided data and saves them to the file.
+	Loads data from the .json file, creates new user with provided data and saves them to the file.
 	'''
 	# Load existing data
 	data = load_data()
