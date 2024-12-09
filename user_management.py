@@ -105,16 +105,22 @@ def edit_user(user_id, updated_data):
     print(f"User has been updated.\n")
 
 def validate_nip(nip):
-	nip = nip.replace('-', '')
-	if len(nip) != 10 or not nip.isdigit():
-		print("NIP is incorrect, try again.")
-		return False
-	digits = [int(digit) for digit in nip]
-	weights = (6, 5, 7, 2, 3, 4, 5, 6, 7)
-	is_last_number_valid = sum(digit1 * digit2 for digit1, digit2 in zip(digits, weights)) % 11
-	return is_last_number_valid == digits[9]
+    '''
+    Checks if nip has correct length and if the control digit is correct.
+    '''
+    nip = nip.replace('-', '')
+    if len(nip) != 10 or not nip.isdigit():
+        print("NIP is incorrect, try again.")
+        return False
+    digits = [int(digit) for digit in nip]
+    weights = (6, 5, 7, 2, 3, 4, 5, 6, 7)
+    is_last_number_valid = sum(digit1 * digit2 for digit1, digit2 in zip(digits, weights)) % 11
+    return is_last_number_valid == digits[9]
 
 def validate_pesel(pesel):
+    '''
+    Checks if digits of month, day and the control digit are valid.
+    '''
     if len(pesel) != 11 or not pesel.isdigit():
         print("PESEL is incorrect, try again.")
         return False

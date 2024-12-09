@@ -30,11 +30,6 @@
 
 ### Milestone 1: Walidacja danych użytkownika
 
-#### Funkcja `validate_pesel(pesel)`
-- Implementuj walidację numeru PESEL.
-- Sprawdź datę urodzenia i sumę kontrolną.
-- [Budowa PESEL](https://www.gov.pl/web/gov/czym-jest-numer-pesel)
-
 #### Funkcja `validate_regon(regon)`
 - Implementuj walidację numeru REGON.
 - Sprawdź poprawność sumy kontrolnej.
