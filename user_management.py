@@ -287,6 +287,7 @@ while app_running:
 			if user_data_list["password"] == "1":
 				user_data_list["password"] = generate_password()
 				print(f"Your password is: {user_data_list["password"]}")
+				valid_password = True
 			else:
 				valid_password = validate_password(user_data_list["password"])
 		user_data_list["status"] = "Active"
