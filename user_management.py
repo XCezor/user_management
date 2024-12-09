@@ -212,8 +212,11 @@ while app_running:
                         value["nip"] = new_nip
 					# PESEL
                     elif edit_data == "3":
-                        new_pesel = input("Enter new PESEL: ")
-                        value["pesel"] = new_pesel
+                        valid_pesel = False
+                        while valid_pesel == False:
+                            new_pesel = input("Enter new PESEL: ")
+                            value["pesel"] = new_pesel
+                            valid_pesel = validate_pesel(value["pesel"])
                     elif edit_data == "4":
                         new_regon = input("Enter new Regon: ")
                         value["regon"] = new_regon
