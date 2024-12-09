@@ -1,108 +1,37 @@
-# user_management
+# Tutorial: User Management System - `user_management.py`
 
-# Tutorial: System Zarządzania Użytkownikami - `user_management.py`
+## Functions:
+- `add_user(user_data)`: Adds new user.
+User is asked to provide full name, nip, pesel and regon numbers. After that, user is asked either to create a random generated password or to create a new one by himself. If any number or password doesn't match the correct criteria, it is immediately reported and asks user to retry the input. At the end, it automatically sets next ID number and status to "Active" and saves user to the users.json file if exists. If the file doesn't exists, it creates a new one.
 
-## Struktura plików i branchy
+- `remove_user(user_id)`: Deletes existing user.
+User is asked to enter a username and a password. Additional function `check_user()` asks user to input a username. If username exists, it asks user to input a password. If username and password are matching the same registered user, it changed user status to "Inactive".
 
-### Struktura plików:
-- **`user_management.py`**: Główny plik aplikacji do zarządzania użytkownikami.
-- **`data/`**: Katalog do przechowywania danych użytkowników.
-  - **`users.json`**: Plik przechowujący informacje o użytkownikach.
-- **`README.md`**: Dokumentacja projektu.
+- `edit_user(user_id, updated_data)`: Edits users data.
+User is again asked to enter username and password. If both are correct, then user is asked which value he wants to change. If user will choose to change password, he's once again asked to generate a random password or to provide a new one by himself. All validations are the same as in `add_user` function.
 
-### Branchy w Git:
-- **`main`**: Główna gałąź projektu zawierająca stabilną wersję aplikacji.
-- **`feature/user_management`**: Gałąź do implementacji funkcji zarządzania użytkownikami.
-- **`feature/password_validation`**: Gałąź do implementacji funkcji walidacji haseł.
+- `validate_nip(nip)`: Validates NIP number.
+Checks if the provided NIP number is 10 digits long and if is made fully of the integer digits (0, 1, 2, etc.). If not, it returns an error and asks user to input NIP again. Then it checks if the last number (the control number) is correctly calculated based on an algorithm that's supposed to check if the control number is valid.
 
-## Nazwy funkcji:
-- `add_user(user_data)`: Dodaje nowego użytkownika.
-- `remove_user(user_id)`: Usuwa istniejącego użytkownika.
-- `edit_user(user_id, updated_data)`: Edytuje dane użytkownika.
-- `validate_nip(nip)`: Waliduje numer NIP.
-- `validate_pesel(pesel)`: Waliduje numer PESEL.
-- `validate_regon(regon)`: Waliduje numer REGON.
-- `generate_password()`: Generuje silne hasło.
-- `validate_password(password)`: Waliduje siłę hasła.
+- `validate_pesel(pesel)`: Validates PESEL number.
+Same rules as for the NIP validation but with PESEL requirements. So it needs to be 11-digit number with pre-set criterias such as correct first 6 numbers (year-month-day) and the control number.
 
----
+- `validate_regon(regon)`: Validates REGON number.
+Checks if REGON has 9 or 14 digits and is a number. Then it checks first 2 digits (voivodeship number) and calculates if the control number is correct.
 
-## Sprint 1: Podstawowe Funkcjonalności Zarządzania Użytkownikami
+- `generate_password()`: Randomly generates strong password.
+New password is at least 12 digits long, contains from 3 to 5 small and large letters, from 2 to 3 symbols and from 3 to 4 numbers. Then prints that password to the user.
 
-### Milestone 1: Przygotowanie projektu
-1. **Stwórz plik projektu**: Utwórz nowy plik o nazwie `user_management.py`.
-2. **Utwórz strukturę katalogów**: Utwórz katalog `data/` do przechowywania informacji o użytkownikach w pliku `users.json`.
-3. **Importuj biblioteki**: Dodaj niezbędne importy, takie jak `json`, `random`, `re` oraz `os` do pracy z plikami i walidacji.
+- `validate_password(password)`: Validates strength of a password.
+Checks if password is at least 12 digits long, contains at least 1 small and large letter, at least 1 symbol and at least 1 number. If not, the user is asked to create password again.
 
-### Milestone 2: Implementacja funkcji dodawania i edycji użytkowników
-#### Funkcja `add_user(user_data)`
-- Implementuj funkcję, która dodaje nowego użytkownika do pliku `users.json`.
-- Waliduj numer PESEL, NIP oraz REGON przed dodaniem użytkownika.
-- Funkcje walidacji dodaj jako puste funkcje – kod napiszesz później.
+### Additional functions:
+- `load_user()`: Prints out list of all registered users.
 
-#### Funkcja `edit_user(user_id, updated_data)`
-- Implementuj funkcję do edycji danych istniejącego użytkownika.
-- Wczytaj dane z pliku `users.json`, edytuj odpowiedni rekord i zapisz zmodyfikowane dane z powrotem do pliku.
+- `load_data()`: Additional function to load all data from the .json file, important to speed up the process of registering user, deleting and editing users.
 
-### Milestone 3: Praca z plikiem `users.json`
-#### Funkcja `remove_user(user_id)`
-- Implementuj funkcję do usuwania użytkownika na podstawie jego identyfikatora.
-- Wczytaj dane z pliku `users.json`, usuń odpowiedni rekord i zapisz zmodyfikowane dane z powrotem do pliku.
+- `save_data(data)`: Similar to load_data(), saves the provided data into .json file if the user was created, edited or removed.
 
-#### Funkcja `load_users()`
-- Implementuj funkcję do odczytu istniejących użytkowników z pliku `users.json`.
-- Wyświetl wszystkie zapisane informacje o użytkownikach.
-
----
-
-## Sprint 2: Walidacja i Bezpieczeństwo
-
-### Milestone 1: Walidacja danych użytkownika
-#### Funkcja `validate_nip(nip)`
-- Numer NIP (Numer Identyfikacji Podatkowej) składa się z 10 cyfr.
-- Mechanizm tworzenia numeru NIP obejmuje zastosowanie wagi dla każdej cyfry numeru: `[6, 5, 7, 2, 3, 4, 5, 6, 7]`.
-- Aby zweryfikować NIP:
-  1. Przemnóż każdą z pierwszych dziewięciu cyfr przez odpowiadającą jej wagę.
-  2. Zsumuj wyniki.
-  3. Podziel sumę przez 11 (modulo). Jeśli reszta jest równa ostatniej cyfrze NIP, numer jest poprawny.
-- [Więcej informacji](https://pl.wikipedia.org/wiki/Numer_identyfikacji_podatkowej)
-
-#### Funkcja `validate_pesel(pesel)`
-- Implementuj walidację numeru PESEL.
-- Sprawdź datę urodzenia i sumę kontrolną.
-- [Budowa PESEL](https://www.gov.pl/web/gov/czym-jest-numer-pesel)
-
-#### Funkcja `validate_regon(regon)`
-- Implementuj walidację numeru REGON.
-- Sprawdź poprawność sumy kontrolnej.
-- [Budowa REGON](https://pl.wikipedia.org/wiki/REGON)
-
-### Milestone 2: Generowanie i walidacja haseł
-#### Funkcja `generate_password()`
-- Implementuj funkcję generującą silne hasło o minimalnej długości 12 znaków, zawierające:
-  - Duże litery.
-  - Małe litery.
-  - Cyfry.
-  - Znaki specjalne.
-
-#### Funkcja `validate_password(password)`
-- Implementuj funkcję walidującą siłę hasła, sprawdzając, czy spełnia minimalne wymagania (długość, złożoność, brak popularnych wzorców).
-
----
-
-## Sprint 3: Testowanie i Dokumentacja
-
-### Milestone 1: Testowanie funkcjonalności
-#### Testowanie dodawania i edycji użytkowników
-- Przetestuj funkcje `add_user()`, `edit_user()` i `remove_user()`, aby upewnić się, że działają prawidłowo.
-- Sprawdź scenariusze, takie jak brak pliku `users.json`, usuwanie nieistniejącego użytkownika itp.
-
-### Milestone 2: Walidacja danych
-#### Testowanie walidacji numerów NIP, PESEL, REGON
-- Przetestuj funkcje walidujące, aby upewnić się, że rozpoznają błędne i poprawne dane.
-
-### Milestone 3: Dokumentacja
-#### Przygotuj dokumentację
-- Utwórz plik `README.md`, opisując kroki instalacji oraz używania programu.
-- Dodaj instrukcje dotyczące dodawania, edycji, usuwania użytkowników oraz wymagania dotyczące walidacji.
-- Wymień najlepsze praktyki dotyczące zarządzania danymi użytkowników, w tym bezpieczeństwo haseł oraz przechowywanie danych osobowych.
+## Suggestions:
+- I'd suggest to later add a password encryption to safely store users passwords, as well as the PESEL numbers so they shouldn't be visible in the .json file as a normal values.
+- If possible, it could be good to check if provided nip, pesel and regon exists and are registered.
