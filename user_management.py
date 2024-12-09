@@ -246,6 +246,9 @@ def generate_password():
 	return final_password
 
 def validate_password(password):
+	'''
+	Checks if password has at least 1 uppercase and lowercase letter, at least 1 number and special sign and at least 12 digits long.
+	'''
 	valid_password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%&()*+@])[A-Za-z\d!#$%&()*+@]{12,}$"
 	if re.search(valid_password, password):
 		return True
@@ -280,8 +283,12 @@ while app_running:
 		# PASSWORD
 		valid_password = False
 		while valid_password == False:
-			user_data_list["password"] = input("Create strong password: ")
-			valid_password = validate_password(user_data_list["password"])
+			user_data_list["password"] = input("Create strong password (or type 1 to generate random password): ")
+			if user_data_list["password"] == "1":
+				user_data_list["password"] = generate_password()
+				print(f"Your password is: {user_data_list["password"]}")
+			else:
+				valid_password = validate_password(user_data_list["password"])
 		user_data_list["status"] = "Active"
 
 		add_user(user_data_list)
@@ -329,9 +336,13 @@ while app_running:
 					elif edit_data == "5":
 						valid_password = False
 						while valid_password == False:
-							new_password = input("Enter new password: ")
-							value["password"] = new_password
-							valid_password = validate_password(value["password"])
+							new_password = input("Enter new password (or type 1 to generate random password): ")
+							if new_password == "1":
+								new_password = generate_password()
+								print(f"Your password is: {new_password}")
+							else:
+								value["password"] = new_password
+								valid_password = validate_password(value["password"])
 
 					edit_user(value["id"], value)
 					break
