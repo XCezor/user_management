@@ -16,24 +16,7 @@
 - `generate_password()`: Generuje silne hasło.
 - `validate_password(password)`: Waliduje siłę hasła.
 
----
-
-## Sprint 1: Podstawowe Funkcjonalności Zarządzania Użytkownikami
-
-### Milestone 2: Implementacja funkcji dodawania i edycji użytkowników
-#### Funkcja `add_user(user_data)`
-- Waliduj numer PESEL oraz REGON przed dodaniem użytkownika.
-
----
-
 ## Sprint 2: Walidacja i Bezpieczeństwo
-
-### Milestone 1: Walidacja danych użytkownika
-
-#### Funkcja `validate_regon(regon)`
-- Implementuj walidację numeru REGON.
-- Sprawdź poprawność sumy kontrolnej.
-- [Budowa REGON](https://pl.wikipedia.org/wiki/REGON)
 
 ### Milestone 2: Generowanie i walidacja haseł
 #### Funkcja `generate_password()`
@@ -53,10 +36,6 @@
 ### Milestone 1: Testowanie funkcjonalności
 #### Testowanie dodawania i edycji użytkowników
 - Sprawdź scenariusze, takie jak brak pliku `users.json`, usuwanie nieistniejącego użytkownika itp.
-
-### Milestone 2: Walidacja danych
-#### Testowanie walidacji numerów NIP, PESEL, REGON
-- Przetestuj funkcje walidujące, aby upewnić się, że rozpoznają błędne i poprawne dane.
 
 ### Milestone 3: Dokumentacja
 #### Przygotuj dokumentację
