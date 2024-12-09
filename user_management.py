@@ -204,7 +204,7 @@ def generate_password():
 	numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 	symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '@']
 	nr_letters_small = random.randint(3, 5)
-	nr_letters_large = random.randint(3, 4)
+	nr_letters_large = random.randint(3, 5)
 	nr_symbols = random.randint(2, 3)
 	nr_numbers = random.randint(4, 5)
 
@@ -243,6 +243,7 @@ def generate_password():
 	final_password = ""
 	for sign in password:
 		final_password += sign
+	print(f"Your password is: {final_password}")
 	return final_password
 
 def validate_password(password):
@@ -286,7 +287,6 @@ while app_running:
 			user_data_list["password"] = input("Create strong password (or type 1 to generate random password): ")
 			if user_data_list["password"] == "1":
 				user_data_list["password"] = generate_password()
-				print(f"Your password is: {user_data_list["password"]}")
 				valid_password = True
 			else:
 				valid_password = validate_password(user_data_list["password"])
@@ -340,7 +340,7 @@ while app_running:
 							new_password = input("Enter new password (or type 1 to generate random password): ")
 							if new_password == "1":
 								new_password = generate_password()
-								print(f"Your password is: {new_password}")
+								valid_password = True
 							else:
 								value["password"] = new_password
 								valid_password = validate_password(value["password"])
