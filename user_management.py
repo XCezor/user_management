@@ -181,7 +181,54 @@ def validate_regon(regon):
 		return is_last_number_valid == digits[13]
 
 def generate_password():
-	pass
+	'''
+	Function generates random password with minimal length of 12 signs, containing at least 2 symbols, 4 numbers and 6 letters and prints it out to the user.
+	'''
+	letters_small = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+	letters_large = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+	numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+	symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+	nr_letters_small = random.randint(3, 5)
+	nr_letters_large = random.randint(3, 4)
+	nr_symbols = random.randint(2, 3)
+	nr_numbers = random.randint(4, 5)
+
+	password = []
+
+	for letter_small in letters_small:
+		if nr_letters_small == 0:
+			break
+		letter_small = random.choice(letters_small)
+		password.append(letter_small)
+		nr_letters_small -= 1
+
+	for letter_large in letters_large:
+		if nr_letters_large == 0:
+			break
+		letter_large = random.choice(letters_large)
+		password.append(letter_large)
+		nr_letters_large -= 1
+
+	for symbol in symbols:
+		if nr_symbols == 0:
+			break
+		symbol = random.choice(symbols)
+		password.append(symbol)
+		nr_symbols -= 1
+
+	for number in numbers:
+		if nr_numbers == 0:
+			break
+		number = random.choice(numbers)
+		password.append(number)
+		nr_numbers -= 1
+
+	random.shuffle(password)
+
+	final_password = ""
+	for sign in password:
+		final_password += sign
+	return final_password
 
 def validate_password(password):
 	pass
@@ -189,7 +236,7 @@ def validate_password(password):
 print("Welcome to the user registration!")
 app_running = True
 while app_running:
-	option = input(f"What would you like to do?\n1. Register\n2. Edit user\n3. Remove user\n4. Load all users\n")
+	option = input(f"What would you like to do?\n1. Register\n2. Edit user\n3. Remove user\n4. Load all users\n5. Generate random password\n")
 
 	if option == "1":
 		user_data_list = {}
@@ -280,3 +327,7 @@ while app_running:
 
 	elif option == "4":
 		load_user()
+
+	elif option == "5":
+		password = generate_password()
+		print(f"Your password is: {password}")

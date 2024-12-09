@@ -19,12 +19,6 @@
 ## Sprint 2: Walidacja i Bezpieczeństwo
 
 ### Milestone 2: Generowanie i walidacja haseł
-#### Funkcja `generate_password()`
-- Implementuj funkcję generującą silne hasło o minimalnej długości 12 znaków, zawierające:
-  - Duże litery.
-  - Małe litery.
-  - Cyfry.
-  - Znaki specjalne.
 
 #### Funkcja `validate_password(password)`
 - Implementuj funkcję walidującą siłę hasła, sprawdzając, czy spełnia minimalne wymagania (długość, złożoność, brak popularnych wzorców).
