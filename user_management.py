@@ -118,7 +118,11 @@ def validate_nip(nip):
 	digits = [int(digit) for digit in nip]
 	weights = (6, 5, 7, 2, 3, 4, 5, 6, 7)
 	is_last_number_valid = sum(digit1 * digit2 for digit1, digit2 in zip(digits, weights)) % 11
-	return is_last_number_valid == digits[9]
+	if is_last_number_valid == digits[9]:
+		return True
+	else:
+		print("Incorrect control digit, try again.")
+		return False
 
 def validate_pesel(pesel):
 	'''
@@ -177,11 +181,19 @@ def validate_regon(regon):
 	if len(regon) == 9:
 		weights = (8, 9, 2, 3, 4, 5, 6, 7)
 		is_last_number_valid = sum(digit1 * digit2 for digit1, digit2 in zip(digits, weights)) % 11
-		return is_last_number_valid == digits[8]
+		if is_last_number_valid == digits[8]:
+			return True
+		else:
+			print("Incorrect control digit, try again.")
+			return False
 	elif len(regon) == 14:
 		weights = (2, 4, 8, 5, 0, 9, 7, 3, 6, 1, 2, 4, 8)
 		is_last_number_valid = sum(digit1 * digit2 for digit1, digit2 in zip(digits, weights)) % 11
-		return is_last_number_valid == digits[13]
+		if is_last_number_valid == digits[13]:
+			return True
+		else:
+			print("Incorrect control digit, try again.")
+			return False
 
 def generate_password():
 	'''
@@ -190,7 +202,7 @@ def generate_password():
 	letters_small = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 	letters_large = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 	numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-	symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+	symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '@']
 	nr_letters_small = random.randint(3, 5)
 	nr_letters_large = random.randint(3, 4)
 	nr_symbols = random.randint(2, 3)
@@ -234,7 +246,12 @@ def generate_password():
 	return final_password
 
 def validate_password(password):
-	pass
+	valid_password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%&()*+@])[A-Za-z\d!#$%&()*+@]{12,}$"
+	if re.search(valid_password, password):
+		return True
+	else:
+		print("Password should be at least 12 digits long, contain at least 1 uppercase and lowercase letter, at least 1 number and special sign")
+		return False
 
 print("Welcome to the user registration!")
 app_running = True
@@ -256,11 +273,15 @@ while app_running:
 			user_data_list["pesel"] = input("Enter your PESEL: ")
 			valid_pesel = validate_pesel(user_data_list["pesel"])
 		# REGON
-		valid_nip = False
-		while valid_nip == False:
+		valid_regon = False
+		while valid_regon == False:
 			user_data_list["regon"] = input("Enter your Regon number: ")
-			valid_nip = validate_nip(user_data_list["nip"])
-		user_data_list["password"] = input("Create strong password: ")
+			valid_regon = validate_regon(user_data_list["regon"])
+		# PASSWORD
+		valid_password = False
+		while valid_password == False:
+			user_data_list["password"] = input("Create strong password: ")
+			valid_password = validate_password(user_data_list["password"])
 		user_data_list["status"] = "Active"
 
 		add_user(user_data_list)
@@ -297,12 +318,20 @@ while app_running:
 							new_pesel = input("Enter new PESEL: ")
 							value["pesel"] = new_pesel
 							valid_pesel = validate_pesel(value["pesel"])
+					# REGON
 					elif edit_data == "4":
-						new_regon = input("Enter new Regon: ")
-						value["regon"] = new_regon
+						valid_regon = False
+						while valid_regon == False:
+							new_regon = input("Enter new REGON: ")
+							value["regon"] = new_regon
+							valid_regon = validate_regon(value["regon"])
+					# PASSWORD
 					elif edit_data == "5":
-						new_password = input("Enter new password: ")
-						value["password"] = new_password
+						valid_password = False
+						while valid_password == False:
+							new_password = input("Enter new password: ")
+							value["password"] = new_password
+							valid_password = validate_password(value["password"])
 
 					edit_user(value["id"], value)
 					break
