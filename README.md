@@ -25,6 +25,13 @@ New password is at least 12 digits long, contains from 3 to 5 small and large le
 - `validate_password(password)`: Validates strength of a password.
 Checks if password is at least 12 digits long, contains at least 1 small and large letter, at least 1 symbol and at least 1 number. If not, the user is asked to create password again.
 
+### Additional functions:
+- `load_user()`: Prints out list of all registered users.
+
+- `load_data()`: Additional function to load all data from the .json file, important to speed up the process of registering user, deleting and editing users.
+
+- `save_data(data)`: Similar to load_data(), saves the provided data into .json file if the user was created, edited or removed.
+
 ## Suggestions:
 - I'd suggest to later add a password encryption to safely store users passwords, as well as the PESEL numbers so they shouldn't be visible in the .json file as a normal values.
 - If possible, it could be good to check if provided nip, pesel and regon exists and are registered.
