@@ -115,7 +115,34 @@ def validate_nip(nip):
 	return is_last_number_valid == digits[9]
 
 def validate_pesel(pesel):
-    pass
+    if len(pesel) != 11 or not pesel.isdigit():
+        print("PESEL is incorrect, try again.")
+        return False
+    digits = [int(digit) for digit in pesel]
+    is_month_valid = True if digits[2] in range(0,4) and digits[3] in range(0,10) else False # People born in 1900-2099 have number from 01 to 32
+    if not is_month_valid:
+        print("PESEL has incorrect month, try again.")
+        return False
+    day_number_one = str(digits[4])
+    day_number_two = day_number_one + str(digits[5])
+    day_number_two = int(day_number_two)
+    is_day_valid = True if day_number_two in range(0,32) else False
+    if not is_day_valid:
+        print("PESEL has incorrect day, try again.")
+        return False
+    weights = (1, 3, 7, 9, 1, 3, 7, 9, 1, 3)
+    last_number = sum(digit1 * digit2 for digit1, digit2 in zip(digits, weights))
+    if last_number > 9:
+        last_number = str(last_number)
+        last_number_digits = [last_number_digit for last_number_digit in last_number]
+        last_number = 10 - int((last_number_digits[1]))
+    else:
+        last_number = 10 - last_number
+    if last_number == digits[10]:
+        return True
+    else:
+        print("Incorrect last digit, try again.")
+        return False
 
 def validate_regon(regon):
     pass
@@ -129,84 +156,88 @@ def validate_password(password):
 print("Welcome to the user registration!")
 app_running = True
 while app_running:
-	option = input(f"What would you like to do?\n1. Register\n2. Edit user\n3. Remove user\n4. Load all users\n")
+    option = input(f"What would you like to do?\n1. Register\n2. Edit user\n3. Remove user\n4. Load all users\n")
 
-	if option == "1":
-		user_data_list = {}
-		user_data_list["id"] = 1
-		user_data_list["username"] = input("Enter your full name: ")
-		# NIP
-		valid_nip = False
-		while valid_nip == False:
-			user_data_list["nip"] = input("Enter your NIP: ")
-			valid_nip = validate_nip(user_data_list["nip"])
-		# PESEL
-		user_data_list["pesel"] = input("Enter your PESEL: ")
-		user_data_list["regon"] = input("Enter your Regon number: ")
-		user_data_list["password"] = input("Create strong password: ")
-		user_data_list["status"] = "Active"
+    if option == "1":
+        user_data_list = {}
+        user_data_list["id"] = 1
+        user_data_list["username"] = input("Enter your full name: ")
+        # NIP
+        valid_nip = False
+        while valid_nip == False:
+            user_data_list["nip"] = input("Enter your NIP: ")
+            valid_nip = validate_nip(user_data_list["nip"])
+        # PESEL
+        valid_pesel = False
+        while valid_pesel == False:
+            user_data_list["pesel"] = input("Enter your PESEL: ")
+            valid_pesel = validate_pesel(user_data_list["pesel"])
+        # REGON
+        user_data_list["regon"] = input("Enter your Regon number: ")
+        user_data_list["password"] = input("Create strong password: ")
+        user_data_list["status"] = "Active"
 
-		add_user(user_data_list)
+        add_user(user_data_list)
 
-	elif option == "2":
-		data = load_data()
-		login_username = check_user()
+    elif option == "2":
+        data = load_data()
+        login_username = check_user()
 
-		password_correct = False
-		while password_correct == False:
-			password_count = 0
-			login_password = input("Enter your password: ")
-			for value in data:
-				if value["username"] == login_username and value["password"] == login_password:
-					password_correct = True
-					password_count += 1
-					print("Login successful!")
+        password_correct = False
+        while password_correct == False:
+            password_count = 0
+            login_password = input("Enter your password: ")
+            for value in data:
+                if value["username"] == login_username and value["password"] == login_password:
+                    password_correct = True
+                    password_count += 1
+                    print("Login successful!")
 
-					edit_data = input("\nWhat you want to edit?\n1. Name\n2. NIP\n3. PESEL\n4. Regon\n5. Password\n")
-					if edit_data == "1":
-						new_username = input("Enter new name: ")
-						value["username"] = new_username
+                    edit_data = input("\nWhat you want to edit?\n1. Name\n2. NIP\n3. PESEL\n4. Regon\n5. Password\n")
+                    if edit_data == "1":
+                        new_username = input("Enter new name: ")
+                        value["username"] = new_username
 					# NIP
-					elif edit_data == "2":
-						valid_nip = False
-						while valid_nip == False:
-							new_nip = input("NIP: ")
-							valid_nip = validate_nip(new_nip)
-						value["nip"] = new_nip
+                    elif edit_data == "2":
+                        valid_nip = False
+                        while valid_nip == False:
+                            new_nip = input("NIP: ")
+                            valid_nip = validate_nip(new_nip)
+                        value["nip"] = new_nip
 					# PESEL
-					elif edit_data == "3":
-						new_pesel = input("Enter new PESEL: ")
-						value["pesel"] = new_pesel
-					elif edit_data == "4":
-						new_regon = input("Enter new Regon: ")
-						value["regon"] = new_regon
-					elif edit_data == "5":
-						new_password = input("Enter new password: ")
-						value["password"] = new_password
+                    elif edit_data == "3":
+                        new_pesel = input("Enter new PESEL: ")
+                        value["pesel"] = new_pesel
+                    elif edit_data == "4":
+                        new_regon = input("Enter new Regon: ")
+                        value["regon"] = new_regon
+                    elif edit_data == "5":
+                        new_password = input("Enter new password: ")
+                        value["password"] = new_password
 
-					edit_user(value["id"], value)
-					break
-			if password_count == 0:
-				print("Incorrect password, try again.\n")
+                    edit_user(value["id"], value)
+                    break
+            if password_count == 0:
+                print("Incorrect password, try again.\n")
 
-	elif option == "3":
-		data = load_data()
-		login_username = check_user()
+    elif option == "3":
+        data = load_data()
+        login_username = check_user()
 
-		password_correct = False
-		while password_correct == False:
-			password_count = 0
-			login_password = input("Enter your password: ")
-			for value in data:
-				if value["username"] == login_username and value["password"] == login_password:
-					password_correct = True
-					password_count += 1
-					print("Login successful!")
+        password_correct = False
+        while password_correct == False:
+            password_count = 0
+            login_password = input("Enter your password: ")
+            for value in data:
+                if value["username"] == login_username and value["password"] == login_password:
+                    password_correct = True
+                    password_count += 1
+                    print("Login successful!")
 
-					remove_user(value["id"])
-					break
-			if password_count == 0:
-				print("Incorrect password, try again.\n")
+                    remove_user(value["id"])
+                    break
+            if password_count == 0:
+                print("Incorrect password, try again.\n")
 
-	elif option == "4":
-		load_user()
+    elif option == "4":
+        load_user()
